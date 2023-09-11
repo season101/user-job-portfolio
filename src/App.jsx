@@ -36,7 +36,11 @@ const App = () => {
 
   return (
     <section className="jobs-center">
-      <BtnContainer companies={companies} setCurrentJob={setCurrentJob} />
+      <BtnContainer
+        companies={companies}
+        setCurrentJob={setCurrentJob}
+        currentJob={currentJob}
+      />
       <JobInfo {...profiles[currentJob]} />
     </section>
   );
