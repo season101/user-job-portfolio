@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import BtnContainer from './BtnContainer';
+import JobInfo from './JobInfo';
 import Loading from './Loading';
 
 const url = 'https://course-api.com/react-tabs-project';
@@ -10,6 +12,9 @@ const App = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(url);
+      if (!response.ok) {
+        return;
+      }
       const data = await response.json();
       setProfiles(data);
       setIsLoading(false);
@@ -26,6 +31,13 @@ const App = () => {
     return <Loading />;
   }
   console.log(profiles);
-  return <h2>Tabs Starter</h2>;
+
+  const companies = [...new Set(profiles.map((job) => job.company))];
+  return (
+    <section className="jobs-center">
+      <BtnContainer companies={companies} />
+      <JobInfo {...profiles[0]} />
+    </section>
+  );
 };
 export default App;
