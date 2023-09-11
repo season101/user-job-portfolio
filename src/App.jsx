@@ -8,6 +8,7 @@ const url = 'https://course-api.com/react-tabs-project';
 const App = () => {
   const [profiles, setProfiles] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentJob, setCurrentJob] = useState(0);
 
   const fetchData = async () => {
     try {
@@ -30,13 +31,13 @@ const App = () => {
   if (isLoading) {
     return <Loading />;
   }
-  console.log(profiles);
 
   const companies = [...new Set(profiles.map((job) => job.company))];
+
   return (
     <section className="jobs-center">
-      <BtnContainer companies={companies} />
-      <JobInfo {...profiles[0]} />
+      <BtnContainer companies={companies} setCurrentJob={setCurrentJob} />
+      <JobInfo {...profiles[currentJob]} />
     </section>
   );
 };
